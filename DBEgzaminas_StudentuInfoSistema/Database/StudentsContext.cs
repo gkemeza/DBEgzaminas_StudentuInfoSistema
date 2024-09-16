@@ -24,7 +24,25 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // change to StudentNumber?
+            modelBuilder.Entity<Student>()
+                .HasKey(a => a.StudentId);
 
+            modelBuilder.Entity<Student>()
+                .Property(a => a.FirstName).HasColumnType("nvarchar(50)");
+            modelBuilder.Entity<Student>()
+                .Property(a => a.LastName).HasColumnType("nvarchar(50)");
+            modelBuilder.Entity<Student>()
+                .Property(a => a.StudentNumber).HasColumnType("int");
+
+            modelBuilder.Entity<Student>()
+                .HasMany(l => l.Lectures);
+
+            modelBuilder.Entity<Student>()
+                .HasOne(d => d.Departament)
+                .WithMany(s => s.Students)
+                .HasForeignKey(d => d.DepartamentId);
+            //.OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

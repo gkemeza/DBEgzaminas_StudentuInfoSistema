@@ -10,7 +10,7 @@
   <ItemGroup>
     <Folder Include="Database\InitialData\" />
     <Folder Include="Database\Migrations\" />
-    <Folder Include="Database\Repositories\" />
+    <Folder Include="Database\Repositories\Interfaces\" />
   </ItemGroup>
 
   <ItemGroup>
