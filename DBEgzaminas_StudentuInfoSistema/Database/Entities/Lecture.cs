@@ -2,8 +2,8 @@
 {
     public class Lecture
     {
-        public string Name { get; set; }
-        public DateTime StartTime { get; set; }
+        public string LectureName { get; set; }
+        public string LectureTime { get; set; }
 
         public ICollection<Departament> Departaments { get; set; }
     }

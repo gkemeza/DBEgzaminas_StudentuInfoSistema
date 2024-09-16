@@ -4,7 +4,7 @@
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public int Number { get; set; }
+        public int StudentNumber { get; set; }
         public string Email { get; set; }
 
         public ICollection<Lecture> Lectures { get; set; }
