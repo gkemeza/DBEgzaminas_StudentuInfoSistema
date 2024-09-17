@@ -24,25 +24,25 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // change to StudentNumber?
-            modelBuilder.Entity<Student>()
-                .HasKey(a => a.StudentId);
+            modelBuilder.Entity<Student>(entity =>
+            {
+                entity.HasKey(a => a.StudentNumber);
+                entity.Property(a => a.FirstName).HasColumnType("nvarchar(50)");
+                entity.Property(a => a.LastName).HasColumnType("nvarchar(50)");
 
-            modelBuilder.Entity<Student>()
-                .Property(a => a.FirstName).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Student>()
-                .Property(a => a.LastName).HasColumnType("nvarchar(50)");
-            modelBuilder.Entity<Student>()
-                .Property(a => a.StudentNumber).HasColumnType("int");
+                entity.HasMany(l => l.Lectures)
+                .WithMany(d => d.Students);
 
-            modelBuilder.Entity<Student>()
-                .HasMany(l => l.Lectures);
-
-            modelBuilder.Entity<Student>()
-                .HasOne(d => d.Departament)
+                entity.HasOne(d => d.Departament)
                 .WithMany(s => s.Students)
-                .HasForeignKey(d => d.DepartamentId);
-            //.OnDelete(DeleteBehavior.NoAction);
+                .HasForeignKey(d => d.DepartamentCode);
+                //.OnDelete(DeleteBehavior.NoAction);
+            });
+
+            modelBuilder.Entity<Departament>(departament =>
+            {
+
+            });
         }
     }
 }

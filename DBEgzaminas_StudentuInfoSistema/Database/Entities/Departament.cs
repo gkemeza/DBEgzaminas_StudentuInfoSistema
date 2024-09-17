@@ -2,8 +2,8 @@
 {
     public class Departament
     {
-        public string DepartmentName { get; set; }
-        public string DepartmentCode { get; set; }
+        public string DepartamentCode { get; set; }
+        public string DepartamentName { get; set; }
 
         public ICollection<Student> Students { get; set; }
 
