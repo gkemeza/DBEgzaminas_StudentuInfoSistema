@@ -27,8 +27,10 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(a => a.StudentNumber);
-                entity.Property(a => a.FirstName).HasColumnType("nvarchar(50)");
-                entity.Property(a => a.LastName).HasColumnType("nvarchar(50)");
+                entity.Property(a => a.StudentNumber).HasPrecision(5); // gal nereik HasPrecision()?
+                entity.Property(a => a.FirstName).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(a => a.LastName).HasColumnType("nvarchar(50)").IsRequired();
+                entity.Property(a => a.Email).IsRequired();
 
                 entity.HasMany(l => l.Lectures)
                 .WithMany(d => d.Students);
@@ -36,12 +38,18 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.HasOne(d => d.Departament)
                 .WithMany(s => s.Students)
                 .HasForeignKey(d => d.DepartamentCode);
+                //.IsRequired();
                 //.OnDelete(DeleteBehavior.NoAction);
             });
 
-            modelBuilder.Entity<Departament>(departament =>
+            modelBuilder.Entity<Departament>(entity =>
             {
+                entity.HasKey(a => a.DepartamentCode);
+                entity.Property(a => a.DepartamentCode).HasMaxLength(6);
+                entity.Property(a => a.DepartamentName).HasColumnType("nvarchar(100)").IsRequired();
 
+                entity.HasMany(l => l.Lectures)
+                      .WithMany(d => d.Departaments);
             });
         }
     }
