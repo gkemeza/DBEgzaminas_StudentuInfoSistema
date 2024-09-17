@@ -51,6 +51,16 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.HasMany(l => l.Lectures)
                       .WithMany(d => d.Departaments);
             });
+
+            modelBuilder.Entity<Lecture>(entity =>
+            {
+                entity.HasKey(a => a.LectureId);
+                entity.HasIndex(a => a.LectureName).IsUnique(); // ?
+                //entity.Property(a => a.LectureName).IsRequired();
+                entity.Property(a => a.StartTime).IsRequired();
+                entity.Property(a => a.EndTime).IsRequired();
+                entity.Property(a => a.Weekday).HasConversion<string>();
+            });
         }
     }
 }
