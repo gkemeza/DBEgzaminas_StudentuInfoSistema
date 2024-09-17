@@ -1,4 +1,4 @@
-﻿LectureName,LectureTime
-Algorithms,10:00-11:30
-Calculus,12:00-13:30
-DataStructures,14:00-15:30
+﻿LectureId,LectureName,LectureTime
+1,Algorithms,10:00-11:30
+2,Calculus,12:00-13:30
+3,DataStructures,14:00-15:30

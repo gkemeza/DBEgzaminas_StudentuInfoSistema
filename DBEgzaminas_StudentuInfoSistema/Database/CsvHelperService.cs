@@ -6,7 +6,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
     {
         public static List<Department> GetDepartments()
         {
-            var csv = File.ReadAllLines("InitialData\\departments.csv");
+            var csv = File.ReadAllLines("Database\\InitialData\\departments.csv");
             var departments = new List<Department>();
             foreach (var line in csv.Skip(1))
             {
@@ -24,16 +24,17 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<Lecture> GetLectures()
         {
-            var csv = File.ReadAllLines("InitialData\\lectures.csv");
+            var csv = File.ReadAllLines("Database\\InitialData\\lectures.csv");
             var lectures = new List<Lecture>();
             foreach (var line in csv.Skip(1))
             {
                 var values = line.Split(',');
                 var lecture = new Lecture
                 {
-                    LectureName = values[0],
-                    StartTime = TimeOnly.ParseExact(Convert.ToString(values[1]).Substring(0, 5), "HH:mm"),
-                    EndTime = TimeOnly.ParseExact(Convert.ToString(values[1]).Substring(6, 5), "HH:mm")
+                    LectureId = int.Parse(values[0]),
+                    LectureName = values[1],
+                    StartTime = TimeOnly.ParseExact(Convert.ToString(values[2]).Substring(0, 5), "HH:mm"),
+                    EndTime = TimeOnly.ParseExact(Convert.ToString(values[2]).Substring(6, 5), "HH:mm")
                 };
                 lectures.Add(lecture);
             }
@@ -43,7 +44,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<Student> GetStudents()
         {
-            var csv = File.ReadAllLines("InitialData\\departments.csv");
+            var csv = File.ReadAllLines("Database\\InitialData\\students.csv");
             var students = new List<Student>();
             foreach (var line in csv.Skip(1))
             {

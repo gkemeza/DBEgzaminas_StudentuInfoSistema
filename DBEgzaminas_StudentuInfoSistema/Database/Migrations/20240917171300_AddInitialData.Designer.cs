@@ -4,6 +4,7 @@ using DBEgzaminas_StudentuInfoSistema.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBEgzaminas_StudentuInfoSistema.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    partial class StudentsContextModelSnapshot : ModelSnapshot
+    [Migration("20240917171300_AddInitialData")]
+    partial class AddInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,14 +61,14 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LectureId"));
 
                     b.Property<TimeOnly>("EndTime")
-                        .HasColumnType("time(0)");
+                        .HasColumnType("time");
 
                     b.Property<string>("LectureName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<TimeOnly>("StartTime")
-                        .HasColumnType("time(0)");
+                        .HasColumnType("time");
 
                     b.Property<string>("Weekday")
                         .IsRequired()

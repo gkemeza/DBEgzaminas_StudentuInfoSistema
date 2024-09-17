@@ -59,8 +59,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
             {
                 entity.HasKey(a => a.LectureId);
                 entity.HasIndex(a => a.LectureName).IsUnique();
-                entity.Property(a => a.StartTime).IsRequired();
-                entity.Property(a => a.EndTime).IsRequired();
+                entity.Property(a => a.StartTime).HasColumnType("time(0)").IsRequired();
+                entity.Property(a => a.EndTime).HasColumnType("time(0)").IsRequired();
                 entity.Property(a => a.Weekday).HasConversion<string>();
 
                 entity.HasData(CsvHelperService.GetLectures());
