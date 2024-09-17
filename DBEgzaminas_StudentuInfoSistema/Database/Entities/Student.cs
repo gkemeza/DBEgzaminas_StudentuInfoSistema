@@ -9,7 +9,7 @@
 
         public ICollection<Lecture> Lectures { get; set; }
 
-        public string DepartamentCode { get; set; }
-        public Departament Departament { get; set; }
+        public string DepartmentCode { get; set; }
+        public Department Department { get; set; }
     }
 }

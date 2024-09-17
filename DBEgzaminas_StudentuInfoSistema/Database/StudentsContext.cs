@@ -10,7 +10,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
         public StudentsContext(DbContextOptions options) : base(options) { }
 
         DbSet<Student> Students { get; set; }
-        DbSet<Departament> Departaments { get; set; }
+        DbSet<Department> Departments { get; set; }
         DbSet<Lecture> Lectures { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -35,20 +35,20 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.HasMany(l => l.Lectures)
                 .WithMany(d => d.Students);
 
-                entity.HasOne(d => d.Departament)
+                entity.HasOne(d => d.Department)
                 .WithMany(s => s.Students)
-                .HasForeignKey(d => d.DepartamentCode);
+                .HasForeignKey(d => d.DepartmentCode);
                 //.OnDelete(DeleteBehavior.NoAction);
             });
 
-            modelBuilder.Entity<Departament>(entity =>
+            modelBuilder.Entity<Department>(entity =>
             {
-                entity.HasKey(a => a.DepartamentCode);
-                entity.Property(a => a.DepartamentCode).HasMaxLength(6);
-                entity.Property(a => a.DepartamentName).HasColumnType("nvarchar(100)").IsRequired();
+                entity.HasKey(a => a.DepartmentCode);
+                entity.Property(a => a.DepartmentCode).HasMaxLength(6);
+                entity.Property(a => a.DepartmentName).HasColumnType("nvarchar(100)").IsRequired();
 
                 entity.HasMany(l => l.Lectures)
-                      .WithMany(d => d.Departaments);
+                      .WithMany(d => d.Departments);
             });
 
             modelBuilder.Entity<Lecture>(entity =>

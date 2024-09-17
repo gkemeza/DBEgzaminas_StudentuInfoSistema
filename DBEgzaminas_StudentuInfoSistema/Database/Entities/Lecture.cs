@@ -10,7 +10,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Entities
         public TimeOnly EndTime { get; set; }
         public Weekday Weekday { get; set; }
 
-        public ICollection<Departament> Departaments { get; set; }
+        public ICollection<Department> Departments { get; set; }
         public ICollection<Student> Students { get; set; }
 
     }

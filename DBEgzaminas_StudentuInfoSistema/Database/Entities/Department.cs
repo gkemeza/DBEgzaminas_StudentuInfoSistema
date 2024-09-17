@@ -1,9 +1,9 @@
 ﻿namespace DBEgzaminas_StudentuInfoSistema.Database.Entities
 {
-    public class Departament
+    public class Department
     {
-        public string DepartamentCode { get; set; }
-        public string DepartamentName { get; set; }
+        public string DepartmentCode { get; set; }
+        public string DepartmentName { get; set; }
 
         public ICollection<Student> Students { get; set; }
 
