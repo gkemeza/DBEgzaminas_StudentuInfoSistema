@@ -39,6 +39,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 .WithMany(s => s.Students)
                 .HasForeignKey(d => d.DepartmentCode);
                 //.OnDelete(DeleteBehavior.NoAction);
+
+                entity.HasData(CsvHelperService.GetStudents());
             });
 
             modelBuilder.Entity<Department>(entity =>
@@ -49,6 +51,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
                 entity.HasMany(l => l.Lectures)
                       .WithMany(d => d.Departments);
+
+                entity.HasData(CsvHelperService.GetDepartments());
             });
 
             modelBuilder.Entity<Lecture>(entity =>
@@ -58,6 +62,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.Property(a => a.StartTime).IsRequired();
                 entity.Property(a => a.EndTime).IsRequired();
                 entity.Property(a => a.Weekday).HasConversion<string>();
+
+                entity.HasData(CsvHelperService.GetLectures());
             });
         }
     }
