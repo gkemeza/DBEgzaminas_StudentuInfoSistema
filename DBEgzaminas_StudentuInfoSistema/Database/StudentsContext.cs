@@ -38,7 +38,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.HasOne(d => d.Departament)
                 .WithMany(s => s.Students)
                 .HasForeignKey(d => d.DepartamentCode);
-                //.IsRequired();
                 //.OnDelete(DeleteBehavior.NoAction);
             });
 
@@ -55,8 +54,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
             modelBuilder.Entity<Lecture>(entity =>
             {
                 entity.HasKey(a => a.LectureId);
-                entity.HasIndex(a => a.LectureName).IsUnique(); // ?
-                //entity.Property(a => a.LectureName).IsRequired();
+                entity.HasIndex(a => a.LectureName).IsUnique();
                 entity.Property(a => a.StartTime).IsRequired();
                 entity.Property(a => a.EndTime).IsRequired();
                 entity.Property(a => a.Weekday).HasConversion<string>();
