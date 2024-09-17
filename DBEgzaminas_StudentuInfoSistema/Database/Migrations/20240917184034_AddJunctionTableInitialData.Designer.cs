@@ -4,6 +4,7 @@ using DBEgzaminas_StudentuInfoSistema.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBEgzaminas_StudentuInfoSistema.Migrations
 {
     [DbContext(typeof(StudentsContext))]
-    partial class StudentsContextModelSnapshot : ModelSnapshot
+    [Migration("20240917184034_AddJunctionTableInitialData")]
+    partial class AddJunctionTableInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -200,23 +203,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                     b.HasIndex("StudentsStudentNumber");
 
                     b.ToTable("LectureStudent");
-
-                    b.HasData(
-                        new
-                        {
-                            LecturesLectureId = 1,
-                            StudentsStudentNumber = 12345678
-                        },
-                        new
-                        {
-                            LecturesLectureId = 3,
-                            StudentsStudentNumber = 12345678
-                        },
-                        new
-                        {
-                            LecturesLectureId = 2,
-                            StudentsStudentNumber = 87654321
-                        });
                 });
 
             modelBuilder.Entity("DBEgzaminas_StudentuInfoSistema.Database.Entities.Student", b =>

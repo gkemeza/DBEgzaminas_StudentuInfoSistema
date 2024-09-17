@@ -33,12 +33,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.Property(a => a.Email).IsRequired();
 
                 entity.HasMany(l => l.Lectures)
-                .WithMany(d => d.Students);
+                .WithMany(d => d.Students)
+                .UsingEntity(j => j.HasData(CsvHelperService.GetLecturesStudents()));
 
                 entity.HasOne(d => d.Department)
                 .WithMany(s => s.Students)
                 .HasForeignKey(d => d.DepartmentCode);
-                //.OnDelete(DeleteBehavior.NoAction);
 
                 entity.HasData(CsvHelperService.GetStudents());
             });
@@ -50,7 +50,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
                 entity.Property(a => a.DepartmentName).HasColumnType("nvarchar(100)").IsRequired();
 
                 entity.HasMany(l => l.Lectures)
-                      .WithMany(d => d.Departments);
+                      .WithMany(d => d.Departments)
+                      .UsingEntity(j => j.HasData(CsvHelperService.GetDepartmentsLectures()));
 
                 entity.HasData(CsvHelperService.GetDepartments());
             });

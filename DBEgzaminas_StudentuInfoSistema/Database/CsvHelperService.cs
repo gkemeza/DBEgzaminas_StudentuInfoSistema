@@ -1,4 +1,5 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database.Entities;
+using DBEgzaminas_StudentuInfoSistema.Database.Models;
 
 namespace DBEgzaminas_StudentuInfoSistema.Database
 {
@@ -61,6 +62,42 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
             }
 
             return students;
+        }
+
+        public static List<DepartmentLecture> GetDepartmentsLectures()
+        {
+            var csv = File.ReadAllLines("Database\\InitialData\\department_lectures.csv");
+            var departmentLectures = new List<DepartmentLecture>();
+            foreach (var line in csv.Skip(1))
+            {
+                var values = line.Split(',');
+                var departmentLecture = new DepartmentLecture
+                {
+                    DepartmentsDepartmentCode = values[0],
+                    LecturesLectureId = int.Parse(values[1])
+                };
+                departmentLectures.Add(departmentLecture);
+            }
+
+            return departmentLectures;
+        }
+
+        public static List<LectureStudent> GetLecturesStudents()
+        {
+            var csv = File.ReadAllLines("Database\\InitialData\\student_lectures.csv");
+            var lectureStudents = new List<LectureStudent>();
+            foreach (var line in csv.Skip(1))
+            {
+                var values = line.Split(',');
+                var lectureStudent = new LectureStudent
+                {
+                    StudentsStudentNumber = int.Parse(values[0]),
+                    LecturesLectureId = int.Parse(values[1])
+                };
+                lectureStudents.Add(lectureStudent);
+            }
+
+            return lectureStudents;
         }
     }
 }
