@@ -9,9 +9,9 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public StudentsContext(DbContextOptions options) : base(options) { }
 
-        DbSet<Student> Students { get; set; }
-        DbSet<Department> Departments { get; set; }
-        DbSet<Lecture> Lectures { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<Department> _departments { get; set; }
+        public DbSet<Lecture> Lectures { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

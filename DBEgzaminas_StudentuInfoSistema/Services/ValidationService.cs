@@ -4,6 +4,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 {
     public class ValidationService
     {
+        // +3 savo validacijos
+
         public bool IsValidStudentName(string name)
         {
 

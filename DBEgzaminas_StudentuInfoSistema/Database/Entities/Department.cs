@@ -2,6 +2,17 @@
 {
     public class Department
     {
+        public Department() { }
+
+        public Department(string departmentCode, string departmentName,
+            ICollection<Student> students, ICollection<Lecture> lectures)
+        {
+            DepartmentCode = departmentCode;
+            DepartmentName = departmentName;
+            Students = students;
+            Lectures = lectures;
+        }
+
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
 
