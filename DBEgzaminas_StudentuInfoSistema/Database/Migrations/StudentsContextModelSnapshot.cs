@@ -34,7 +34,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
 
                     b.HasKey("DepartmentCode");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
 
                     b.HasData(
                         new
@@ -75,7 +75,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                     b.HasIndex("LectureName")
                         .IsUnique();
 
-                    b.ToTable("Lectures");
+                    b.ToTable("Lectures", (string)null);
 
                     b.HasData(
                         new
@@ -130,7 +130,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
 
                     b.HasIndex("DepartmentCode");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
 
                     b.HasData(
                         new
@@ -163,7 +163,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
 
                     b.HasIndex("LecturesLectureId");
 
-                    b.ToTable("DepartmentLecture");
+                    b.ToTable("DepartmentLecture", (string)null);
 
                     b.HasData(
                         new
@@ -195,7 +195,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
 
                     b.HasIndex("StudentsStudentNumber");
 
-                    b.ToTable("LectureStudent");
+                    b.ToTable("LectureStudent", (string)null);
 
                     b.HasData(
                         new

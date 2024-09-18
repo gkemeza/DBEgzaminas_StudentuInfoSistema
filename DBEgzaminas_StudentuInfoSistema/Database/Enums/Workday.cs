@@ -1,6 +1,6 @@
 ﻿namespace DBEgzaminas_StudentuInfoSistema.Database.Enums
 {
-    public enum Weekday
+    public enum Workday
     {
         Monday,
         Tuesday,

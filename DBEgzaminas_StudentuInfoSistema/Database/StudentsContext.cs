@@ -27,7 +27,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
             modelBuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(a => a.StudentNumber);
-                entity.Property(a => a.StudentNumber).HasPrecision(5); // gal nereik HasPrecision()?
                 entity.Property(a => a.FirstName).HasColumnType("nvarchar(50)").IsRequired();
                 entity.Property(a => a.LastName).HasColumnType("nvarchar(50)").IsRequired();
                 entity.Property(a => a.Email).IsRequired();
