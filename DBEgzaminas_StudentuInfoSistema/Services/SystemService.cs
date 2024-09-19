@@ -169,6 +169,11 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
         }
 
+        public void Run()
+        {
+
+        }
+
         //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
         //{
         //    var department = _departmentRepository.GetByCode(departmentCode);
