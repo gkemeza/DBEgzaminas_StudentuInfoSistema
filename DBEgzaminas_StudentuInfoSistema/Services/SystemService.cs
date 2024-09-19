@@ -21,8 +21,11 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             _userInterface = userInterface;
         }
 
-        public string CreateDepartment(string code, string name)
+        public string CreateDepartment()
         {
+            string code = _userInterface.PromptForDepartmentCode();
+            string name = _userInterface.PromptForDepartmentName();
+
             var department = new Department(code, name);
             return _departmentRepository.Create(department);
         }
@@ -56,18 +59,27 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
-        public bool AddStudentToDepartment(string departmentCode, int studentNumber)
+        //??
+        public bool AddStudentToDepartment()
         {
+            _userInterface.PrintStudents();
+            int studentNumber = _userInterface.PromptForStudentNumber();
+
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
             var department = _departmentRepository.GetByCode(departmentCode);
             var student = _studentRepository.GetById(studentNumber);
 
-            if (!department.Students.Contains(student))
+            if (department.Students != null && student != null)
             {
-                department.Students.Add(student);
-                _departmentRepository.SaveChanges();
-                return true;
+                if (!department.Students.Contains(student))
+                {
+                    department.Students.Add(student);
+                    _departmentRepository.SaveChanges();
+                    return true;
+                }
             }
-
             return false;
         }
 

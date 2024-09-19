@@ -14,7 +14,8 @@ namespace DBEgzaminas_StudentuInfoSistema
             IDepartmentRepository departmentRepository = new DepartmentRepository(context);
             ILectureRepository lectureRepository = new LectureRepository(context);
             IStudentRepository studentRepository = new StudentRepository(context);
-            UserInterface userInterface = new UserInterface();
+            UserInterface userInterface = new UserInterface(
+                departmentRepository, lectureRepository, studentRepository);
             SystemService systemService = new SystemService(
                 departmentRepository, lectureRepository, studentRepository, userInterface);
             ApplicationController controller = new ApplicationController(systemService, userInterface);

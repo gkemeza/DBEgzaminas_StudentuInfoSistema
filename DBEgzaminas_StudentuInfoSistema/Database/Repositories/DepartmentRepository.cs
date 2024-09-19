@@ -27,7 +27,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Repositories
 
         public string Create(Department department)
         {
-            _context.Add(department);
+            _departments.Add(department);
             _context.SaveChanges();
 
             return department.DepartmentCode;

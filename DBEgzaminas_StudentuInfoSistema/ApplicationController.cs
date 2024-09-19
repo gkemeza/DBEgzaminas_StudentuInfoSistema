@@ -30,19 +30,44 @@ namespace DBEgzaminas_StudentuInfoSistema
             switch (option)
             {
                 case "1":
-                    _userInterface.DisplayDepartmentsMenu();
+                    HandleDepartmentsMenuInput();
                     break;
                 case "2":
-                    //StudentsMenu();
+                    //HandleStudentsMenuInput();
                     break;
                 case "3":
-                    //LecturesMenu();
+                    //HandleLecturesMenuInput();
                     break;
                 case "q":
                     Console.WriteLine("Exiting...");
                     Environment.Exit(0);
                     break;
                 default:
+                    break;
+            }
+        }
+
+        private void HandleDepartmentsMenuInput()
+        {
+            _userInterface.DisplayDepartmentsMenu();
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    _systemService.CreateDepartment();
+                    break;
+                case "2":
+                    _systemService.AddStudentToDepartment();
+                    break;
+                case "3":
+                    //AddLectures();
+                    break;
+                case "q":
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
                     break;
             }
         }
