@@ -1,6 +1,7 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database.Entities;
 using DBEgzaminas_StudentuInfoSistema.Database.Enums;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
+using DBEgzaminas_StudentuInfoSistema.Presentation;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
@@ -9,13 +10,15 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ILectureRepository _lectureRepository;
         private readonly IStudentRepository _studentRepository;
+        private readonly userInterface _userInterface;
 
-        public SystemService(IDepartmentRepository departmentRepository,
-            ILectureRepository lectureRepository, IStudentRepository studentRepository)
+        public SystemService(IDepartmentRepository departmentRepository, ILectureRepository lectureRepository,
+            IStudentRepository studentRepository, userInterface userInterface)
         {
             _departmentRepository = departmentRepository;
             _lectureRepository = lectureRepository;
             _studentRepository = studentRepository;
+            _userInterface = userInterface;
         }
 
         public string CreateDepartment(string code, string name)
@@ -171,8 +174,38 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public void Run()
         {
-
+            while (true)
+            {
+                _userInterface.DisplayMainMenu();
+                //CallChosenOptionMethod();
+            }
         }
+
+        //private void CallChosenOptionMethod()
+        //{
+        //    string option = Console.ReadLine();
+
+        //    switch (option)
+        //    {
+        //        case "1":
+        //            BeginTable();
+        //            break;
+        //        case "2":
+        //            ShowOpenTables();
+        //            break;
+        //        case "3":
+        //            _receiptService.ShowReceipts();
+        //            break;
+        //        case "4":
+        //            ViewTables();
+        //            break;
+        //        case "q":
+        //            Console.WriteLine("Exiting...");
+        //            Environment.Exit(0);
+        //            break;
+        //        default:
+        //            break;
+        //    }
 
         //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
         //{
