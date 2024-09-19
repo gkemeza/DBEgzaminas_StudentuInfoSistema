@@ -99,6 +99,76 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
+        public void PrintDepartmentStudents(string departmentCode)
+        {
+            var department = _departmentRepository.GetByCode(departmentCode);
+            //gal eager loadig reik?
+
+            if (department == null)
+            {
+                Console.WriteLine($"Department with Code {departmentCode} not found.");
+                return;
+            }
+
+            if (!department.Lectures.Any())
+            {
+                Console.WriteLine($"{department.DepartmentName} has no lectures.");
+                return;
+            }
+
+            foreach (var student in department.Students)
+            {
+                Console.WriteLine($"{student.FirstName} {student.LastName} " +
+                    $"({student.Email}) - {student.StudentNumber}");
+            }
+        }
+
+        public void PrintDepartmentLectures(string departmentCode)
+        {
+            var department = _departmentRepository.GetByCode(departmentCode);
+
+            if (department == null)
+            {
+                Console.WriteLine($"Department with Code {departmentCode} not found.");
+                return;
+            }
+
+            if (!department.Lectures.Any())
+            {
+                Console.WriteLine($"{department.DepartmentName} has no lectures.");
+                return;
+            }
+
+            foreach (var lecture in department.Lectures)
+            {
+                Console.WriteLine($"{lecture.LectureName} {lecture.StartTime} " +
+                    $"({lecture.EndTime}) - {lecture.LectureId}");
+            }
+        }
+
+        public void PrintLecturesByStudent(int studentNumber)
+        {
+            var student = _studentRepository.GetById(studentNumber);
+
+            if (student == null)
+            {
+                Console.WriteLine($"Student with Number {studentNumber} not found.");
+                return;
+            }
+
+            if (!student.Lectures.Any())
+            {
+                Console.WriteLine($"{student.FirstName} {student.LastName} is not enrolled in any lectures.");
+                return;
+            }
+
+            Console.WriteLine($"{student.FirstName} {student.LastName} lectures:");
+            foreach (var lecture in student.Lectures)
+            {
+                Console.WriteLine($"- {lecture}");
+            }
+        }
+
         //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
         //{
         //    var department = _departmentRepository.GetByCode(departmentCode);
