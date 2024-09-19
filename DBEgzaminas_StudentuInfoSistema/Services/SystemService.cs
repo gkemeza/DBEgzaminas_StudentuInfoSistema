@@ -23,7 +23,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
         {
-            var department = _departmentRepository.GetById(departmentCode);
+            var department = _departmentRepository.GetByCode(departmentCode);
             foreach (var student in students)
             {
                 if (!department.Students.Contains(student))
@@ -36,7 +36,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public void AddLecturesToDepartment(string departmentCode, IEnumerable<Lecture> lectures)
         {
-            var department = _departmentRepository.GetById(departmentCode);
+            var department = _departmentRepository.GetByCode(departmentCode);
             foreach (var lecture in lectures)
             {
                 if (!department.Lectures.Contains(lecture))
