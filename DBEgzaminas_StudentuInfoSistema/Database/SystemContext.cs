@@ -3,11 +3,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DBEgzaminas_StudentuInfoSistema.Database
 {
-    public class StudentsContext : DbContext
+    public class SystemContext : DbContext
     {
-        public StudentsContext() : base() { }
+        public SystemContext() : base() { }
 
-        public StudentsContext(DbContextOptions options) : base(options) { }
+        public SystemContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Student> Students { get; set; }
         public DbSet<Department> _departments { get; set; }

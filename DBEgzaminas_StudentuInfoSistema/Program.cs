@@ -9,7 +9,7 @@ namespace DBEgzaminas_StudentuInfoSistema
     {
         static void Main(string[] args)
         {
-            StudentsContext context = new StudentsContext();
+            SystemContext context = new SystemContext();
             IDepartmentRepository departmentRepository = new DepartmentRepository(context);
             ILectureRepository lectureRepository = new LectureRepository(context);
             IStudentRepository studentRepository = new StudentRepository(context);

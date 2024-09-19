@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBEgzaminas_StudentuInfoSistema.Migrations
 {
-    [DbContext(typeof(StudentsContext))]
+    [DbContext(typeof(SystemContext))]
     partial class StudentsContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

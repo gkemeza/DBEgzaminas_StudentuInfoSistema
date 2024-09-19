@@ -6,10 +6,10 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Repositories
 {
     public class StudentRepository : IStudentRepository
     {
-        private readonly StudentsContext _context;
+        private readonly SystemContext _context;
         private readonly DbSet<Student> _students;
 
-        public StudentRepository(StudentsContext context)
+        public StudentRepository(SystemContext context)
         {
             _context = context;
             _students = _context.Set<Student>();

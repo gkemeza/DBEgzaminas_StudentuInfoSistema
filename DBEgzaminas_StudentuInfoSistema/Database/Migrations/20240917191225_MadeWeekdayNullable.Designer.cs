@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DBEgzaminas_StudentuInfoSistema.Migrations
 {
-    [DbContext(typeof(StudentsContext))]
+    [DbContext(typeof(SystemContext))]
     [Migration("20240917191225_MadeWeekdayNullable")]
     partial class MadeWeekdayNullable
     {
