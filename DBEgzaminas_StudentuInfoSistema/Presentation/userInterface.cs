@@ -12,5 +12,16 @@
             Console.WriteLine("3. Lectures");
             Console.WriteLine("q. Exit");
         }
+
+        public void DisplayDepartmentsMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("***** Departments *****\n");
+            Console.WriteLine("Choose a function:");
+            Console.WriteLine("1. Create department");
+            Console.WriteLine("2. Add students");
+            Console.WriteLine("3. Add lectures");
+            Console.WriteLine("q. Go back");
+        }
     }
 }

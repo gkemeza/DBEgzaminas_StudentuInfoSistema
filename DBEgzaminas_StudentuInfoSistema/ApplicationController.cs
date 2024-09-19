@@ -19,34 +19,32 @@ namespace DBEgzaminas_StudentuInfoSistema
             while (true)
             {
                 _userInterface.DisplayMainMenu();
-                //CallChosenOptionMethod();
+                CallChosenOptionMethod();
             }
         }
 
-        //private void CallChosenOptionMethod()
-        //{
-        //    string option = Console.ReadLine();
+        private void CallChosenOptionMethod()
+        {
+            string option = Console.ReadLine();
 
-        //    switch (option)
-        //    {
-        //        case "1":
-        //            BeginTable();
-        //            break;
-        //        case "2":
-        //            ShowOpenTables();
-        //            break;
-        //        case "3":
-        //            _receiptService.ShowReceipts();
-        //            break;
-        //        case "4":
-        //            ViewTables();
-        //            break;
-        //        case "q":
-        //            Console.WriteLine("Exiting...");
-        //            Environment.Exit(0);
-        //            break;
-        //        default:
-        //            break;
-        //    }
+            switch (option)
+            {
+                case "1":
+                    _userInterface.DisplayDepartmentsMenu();
+                    break;
+                case "2":
+                    //StudentsMenu();
+                    break;
+                case "3":
+                    //LecturesMenu();
+                    break;
+                case "q":
+                    Console.WriteLine("Exiting...");
+                    Environment.Exit(0);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }
