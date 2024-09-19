@@ -1,6 +1,6 @@
 ﻿namespace DBEgzaminas_StudentuInfoSistema.Presentation
 {
-    public class userInterface
+    public class UserInterface
     {
         public void DisplayMainMenu()
         {

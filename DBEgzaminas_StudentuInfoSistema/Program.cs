@@ -1,6 +1,7 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
+using DBEgzaminas_StudentuInfoSistema.Presentation;
 using DBEgzaminas_StudentuInfoSistema.Services;
 
 namespace DBEgzaminas_StudentuInfoSistema
@@ -13,10 +14,12 @@ namespace DBEgzaminas_StudentuInfoSistema
             IDepartmentRepository departmentRepository = new DepartmentRepository(context);
             ILectureRepository lectureRepository = new LectureRepository(context);
             IStudentRepository studentRepository = new StudentRepository(context);
+            UserInterface userInterface = new UserInterface();
             SystemService systemService = new SystemService(
-                departmentRepository, lectureRepository, studentRepository);
+                departmentRepository, lectureRepository, studentRepository, userInterface);
+            ApplicationController controller = new ApplicationController(systemService, userInterface);
 
-            systemService.Run();
+            controller.Run();
         }
     }
 }
