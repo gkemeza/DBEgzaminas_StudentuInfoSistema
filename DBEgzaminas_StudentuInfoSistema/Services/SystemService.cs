@@ -83,6 +83,22 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
+        public bool ChangeStudentDepartment(int studentNumber, string departmentCode)
+        {
+            var student = _studentRepository.GetById(studentNumber);
+            var department = _departmentRepository.GetByCode(departmentCode);
+
+            if (student.DepartmentCode != departmentCode)
+            {
+                student.Department = department;
+                student.Lectures = department.Lectures;
+                _departmentRepository.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
         //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
         //{
         //    var department = _departmentRepository.GetByCode(departmentCode);
