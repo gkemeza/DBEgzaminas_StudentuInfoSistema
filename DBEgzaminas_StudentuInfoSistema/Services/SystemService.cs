@@ -18,49 +18,82 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             _studentRepository = studentRepository;
         }
 
-
-        // make create and add into diff methods
-        public Department CreateDepartment(string code, string name,
-            ICollection<Student> students, ICollection<Lecture> lectures)
+        public string CreateDepartment(string code, string name)
         {
-            var department = new Department(code, name, students, lectures);
-            _departmentRepository.Create(department);
-            return department;
+            var department = new Department(code, name);
+            return _departmentRepository.Create(department);
         }
 
-        public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
-        {
-            var department = _departmentRepository.GetByCode(departmentCode);
-            foreach (var student in students)
-            {
-                if (!department.Students.Contains(student))
-                {
-                    department.Students.Add(student);
-                }
-            }
-            _departmentRepository.SaveChanges();
-        }
-
-        public void AddLecturesToDepartment(string departmentCode, IEnumerable<Lecture> lectures)
-        {
-            var department = _departmentRepository.GetByCode(departmentCode);
-            foreach (var lecture in lectures)
-            {
-                if (!department.Lectures.Contains(lecture))
-                {
-                    department.Lectures.Add(lecture);
-                }
-            }
-            _departmentRepository.SaveChanges();
-        }
-
-        public int CreateLecture(int id, string name,
-            TimeOnly startTime, TimeOnly endTime, Workday? workday = null)
+        public int CreateLecture(int id, string name, TimeOnly startTime,
+                        TimeOnly endTime, Workday? workday = null)
         {
             var lecture = new Lecture(id, name, startTime, endTime, workday);
-
             return _lectureRepository.Create(lecture);
         }
+
+        public int CreateStudent(int studentNumber, string firstName,
+                                string lastName, string email)
+        {
+            var student = new Student(studentNumber, firstName, lastName, email);
+            return _studentRepository.Create(student);
+        }
+
+        public bool AddLectureToDepartment(string departmentCode, int lectureId)
+        {
+            var department = _departmentRepository.GetByCode(departmentCode);
+            var lecture = _lectureRepository.GetById(lectureId);
+
+            if (!department.Lectures.Contains(lecture))
+            {
+                department.Lectures.Add(lecture);
+                _departmentRepository.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool AddStudentToDepartment(string departmentCode, int studentNumber)
+        {
+            var department = _departmentRepository.GetByCode(departmentCode);
+            var student = _studentRepository.GetById(studentNumber);
+
+            if (!department.Students.Contains(student))
+            {
+                department.Students.Add(student);
+                _departmentRepository.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
+
+        //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
+        //{
+        //    var department = _departmentRepository.GetByCode(departmentCode);
+        //    foreach (var student in students)
+        //    {
+        //        if (!department.Students.Contains(student))
+        //        {
+        //            department.Students.Add(student);
+        //        }
+        //    }
+        //    _departmentRepository.SaveChanges();
+        //}
+
+        //public void AddLecturesToDepartment(string departmentCode, IEnumerable<Lecture> lectures)
+        //{
+        //    var department = _departmentRepository.GetByCode(departmentCode);
+        //    foreach (var lecture in lectures)
+        //    {
+        //        if (!department.Lectures.Contains(lecture))
+        //        {
+        //            department.Lectures.Add(lecture);
+        //            _departmentRepository.SaveChanges();
+        //        }
+        //    }
+        //}
+
 
     }
 }
