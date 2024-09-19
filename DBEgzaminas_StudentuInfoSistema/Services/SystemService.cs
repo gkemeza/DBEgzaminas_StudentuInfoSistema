@@ -7,14 +7,21 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
     public class SystemService
     {
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly ILectureRepository _lectureRepository;
+        private readonly IStudentRepository _studentRepository;
 
-        public SystemService(IDepartmentRepository departmentRepository)
+        public SystemService(IDepartmentRepository departmentRepository,
+            ILectureRepository lectureRepository, IStudentRepository studentRepository)
         {
             _departmentRepository = departmentRepository;
+            _lectureRepository = lectureRepository;
+            _studentRepository = studentRepository;
         }
 
+
         // make create and add into diff methods
-        public Department CreateDepartment(string code, string name, ICollection<Student> students, ICollection<Lecture> lectures)
+        public Department CreateDepartment(string code, string name,
+            ICollection<Student> students, ICollection<Lecture> lectures)
         {
             var department = new Department(code, name, students, lectures);
             _departmentRepository.Create(department);
@@ -47,12 +54,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             _departmentRepository.SaveChanges();
         }
 
-        public Lecture CreateLecture(int id, string name,
+        public int CreateLecture(int id, string name,
             TimeOnly startTime, TimeOnly endTime, Workday? workday = null)
         {
             var lecture = new Lecture(id, name, startTime, endTime, workday);
-            // add to DB
-            return lecture;
+
+            return _lectureRepository.Create(lecture);
         }
 
     }
