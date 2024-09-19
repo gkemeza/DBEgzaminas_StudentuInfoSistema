@@ -1,10 +1,23 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database.Enums;
+using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
     public class ValidationService
     {
         // +3 savo validacijos
+
+        private readonly IDepartmentRepository _departmentRepository;
+        private readonly ILectureRepository _lectureRepository;
+        private readonly IStudentRepository _studentRepository;
+
+        public ValidationService(IDepartmentRepository departmentRepository,
+            ILectureRepository lectureRepository, IStudentRepository studentRepository)
+        {
+            _departmentRepository = departmentRepository;
+            _lectureRepository = lectureRepository;
+            _studentRepository = studentRepository;
+        }
 
         public bool IsValidStudentName(string name)
         {
@@ -29,7 +42,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
-            // Check if the student number is unique (with repo)
+            // Check if the student number is unique
+            var student = _studentRepository.GetById(int.Parse(studentNumber));
+            if (student != null)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -53,7 +71,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
-            // Check if the student email is unique (with repo)
+            // Check if the student email is unique
+            var students = _studentRepository.GetAll();
+            if (students.Any(x => x.Email == email))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -80,7 +103,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
-            // Check if the department code is unique (with repo)
+            // Check if the department code is unique
+            var department = _departmentRepository.GetByCode(code);
+            if (department != null)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -92,7 +120,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
-            // Check if the lecture name is unique (with repo)
+            // Check if the lecture name is unique
+            var lectures = _lectureRepository.GetAll();
+            if (lectures.Any(x => x.LectureName == name))
+            {
+                return false;
+            }
 
             return true;
         }
@@ -114,7 +147,20 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
-            // Check if the lecture time in the same department is unique (with repo)
+            // Check if the lecture time in the same department is unique
+            //var lectures = _lectureRepository.GetAll();
+            //var departments = _departmentRepository.GetAll();
+            //foreach (var lecture in lectures)
+            //{
+            //    foreach (var department in departments)
+            //    {
+            //        if (lectures.Any(x =>
+            //                x.StartTime > endTime && x.EndTime < startTime))
+            //        {
+            //            return false;
+            //        }
+            //    }
+            //}
 
             return true;
         }
