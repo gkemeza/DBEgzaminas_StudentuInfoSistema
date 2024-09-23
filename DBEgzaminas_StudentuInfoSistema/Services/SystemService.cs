@@ -5,6 +5,7 @@ using DBEgzaminas_StudentuInfoSistema.Presentation;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
+    // Funkcionalumai
     public class SystemService
     {
         private readonly IDepartmentRepository _departmentRepository;
