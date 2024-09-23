@@ -4,7 +4,6 @@ using DBEgzaminas_StudentuInfoSistema.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DBEgzaminas_StudentuInfoSistema.Migrations
 {
     [DbContext(typeof(SystemContext))]
-    [Migration("20240917172330_UpdateTimeCloumnType")]
-    partial class UpdateTimeCloumnType
+    partial class SystemContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -71,7 +68,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                         .HasColumnType("time(0)");
 
                     b.Property<string>("Weekday")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("LectureId");
@@ -87,38 +83,30 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                             LectureId = 1,
                             EndTime = new TimeOnly(11, 30, 0),
                             LectureName = "Algorithms",
-                            StartTime = new TimeOnly(10, 0, 0),
-                            Weekday = "Monday"
+                            StartTime = new TimeOnly(10, 0, 0)
                         },
                         new
                         {
                             LectureId = 2,
                             EndTime = new TimeOnly(13, 30, 0),
                             LectureName = "Calculus",
-                            StartTime = new TimeOnly(12, 0, 0),
-                            Weekday = "Monday"
+                            StartTime = new TimeOnly(12, 0, 0)
                         },
                         new
                         {
                             LectureId = 3,
                             EndTime = new TimeOnly(15, 30, 0),
                             LectureName = "DataStructures",
-                            StartTime = new TimeOnly(14, 0, 0),
-                            Weekday = "Monday"
+                            StartTime = new TimeOnly(14, 0, 0)
                         });
                 });
 
             modelBuilder.Entity("DBEgzaminas_StudentuInfoSistema.Database.Entities.Student", b =>
                 {
                     b.Property<int>("StudentNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasPrecision(5)
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentNumber"));
-
                     b.Property<string>("DepartmentCode")
-                        .IsRequired()
                         .HasColumnType("nvarchar(6)");
 
                     b.Property<string>("Email")
@@ -171,6 +159,23 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                     b.HasIndex("LecturesLectureId");
 
                     b.ToTable("DepartmentLecture");
+
+                    b.HasData(
+                        new
+                        {
+                            DepartmentsDepartmentCode = "CS1234",
+                            LecturesLectureId = 1
+                        },
+                        new
+                        {
+                            DepartmentsDepartmentCode = "CS1234",
+                            LecturesLectureId = 3
+                        },
+                        new
+                        {
+                            DepartmentsDepartmentCode = "MTH567",
+                            LecturesLectureId = 2
+                        });
                 });
 
             modelBuilder.Entity("LectureStudent", b =>
@@ -186,15 +191,30 @@ namespace DBEgzaminas_StudentuInfoSistema.Migrations
                     b.HasIndex("StudentsStudentNumber");
 
                     b.ToTable("LectureStudent");
+
+                    b.HasData(
+                        new
+                        {
+                            LecturesLectureId = 1,
+                            StudentsStudentNumber = 12345678
+                        },
+                        new
+                        {
+                            LecturesLectureId = 3,
+                            StudentsStudentNumber = 12345678
+                        },
+                        new
+                        {
+                            LecturesLectureId = 2,
+                            StudentsStudentNumber = 87654321
+                        });
                 });
 
             modelBuilder.Entity("DBEgzaminas_StudentuInfoSistema.Database.Entities.Student", b =>
                 {
                     b.HasOne("DBEgzaminas_StudentuInfoSistema.Database.Entities.Department", "Department")
                         .WithMany("Students")
-                        .HasForeignKey("DepartmentCode")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("DepartmentCode");
 
                     b.Navigation("Department");
                 });
