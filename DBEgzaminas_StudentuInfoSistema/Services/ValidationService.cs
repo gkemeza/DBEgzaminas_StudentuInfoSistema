@@ -140,8 +140,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return TimeOnly.TryParseExact(input, "HH:mm", out time);
         }
 
-        //TimeOnly.TryParseExact(Convert.ToString(time).Substring(0, 5), "HH:mm", out TimeOnly startTime)
-
         public bool IsValidLectureTime(TimeOnly startTime, TimeOnly endTime)
         {
             if (startTime >= endTime)
