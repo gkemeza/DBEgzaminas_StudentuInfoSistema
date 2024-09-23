@@ -147,6 +147,15 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return false;
             }
 
+            // Check for overlapping lectures
+            foreach (var lecture in _lectureRepository.GetAll())
+            {
+                if ((startTime < lecture.EndTime && endTime > lecture.StartTime))
+                {
+                    return false;
+                }
+            }
+
             // Check if the lecture time in the same department is unique
             //var lectures = _lectureRepository.GetAll();
             //var departments = _departmentRepository.GetAll();
@@ -167,6 +176,11 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public bool IsValidLectureWeekday(string weekDay)
         {
+            if (string.IsNullOrEmpty(weekDay))
+            {
+                return true; // Null means the lectures are scheduled for all workdays (Mon-Fri)
+            }
+
             if (!Enum.IsDefined(typeof(Workday), weekDay))
             {
                 return false;

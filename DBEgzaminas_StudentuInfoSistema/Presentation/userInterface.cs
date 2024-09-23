@@ -122,6 +122,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             return Console.ReadLine();
         }
 
+        public string? PromptForWeekday()
+        {
+            Console.WriteLine("Enter weekday (optional):");
+            return Console.ReadLine();
+        }
+
         public int PromptForStudentNumber()
         {
             Console.WriteLine("Choose student number:");

@@ -1,4 +1,5 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database.Entities;
+using DBEgzaminas_StudentuInfoSistema.Database.Enums;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
 using DBEgzaminas_StudentuInfoSistema.Presentation;
 
@@ -71,7 +72,24 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidLectureTime(startTime, endTime));
 
-            var lecture = new Lecture(name, startTime, endTime);
+            Workday? workday = null;
+            string? weekday;
+            do
+            {
+                weekday = _userInterface.PromptForWeekday();
+            }
+            while (!_validationService.IsValidLectureWeekday(weekday));
+
+            if (weekday == "")
+            {
+                workday = null;
+            }
+            else
+            {
+                workday = (Workday)Enum.Parse(typeof(Workday), weekday);
+            }
+
+            var lecture = new Lecture(name, startTime, endTime, workday);
             return _lectureRepository.Create(lecture);
         }
 

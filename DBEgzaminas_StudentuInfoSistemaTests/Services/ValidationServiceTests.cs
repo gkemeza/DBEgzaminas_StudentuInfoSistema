@@ -370,6 +370,76 @@ namespace DBEgzaminas_StudentuInfoSistema.Services.Tests
             // Assert
             Assert.IsFalse(result, "Expected false for lecture name shorter than 5 characters.");
         }
+
+        [TestMethod]
+        public void IsValidLectureTime_EndTimeBeforeStartTime_ReturnsFalse()
+        {
+            // Arrange
+            TimeOnly startTime = new TimeOnly(14, 0); // 14:00
+            TimeOnly endTime = new TimeOnly(13, 0); // 13:00
+
+            // Act
+            bool result = _validator.IsValidLectureTime(startTime, endTime);
+
+            // Assert
+            Assert.IsFalse(result, "Expected false for end time earlier than start time.");
+        }
+
+        [TestMethod]
+        public void IsValidLectureTime_OverlappingLectures_ReturnsFalse()
+        {
+            // Arrange
+            TimeOnly startTime1 = new TimeOnly(10, 0); // 10:00
+            TimeOnly endTime1 = new TimeOnly(11, 30); // 11:30
+            TimeOnly startTime2 = new TimeOnly(11, 0); // 11:00
+            TimeOnly endTime2 = new TimeOnly(12, 30); // 12:30
+            _lectureRepository.Create(new Lecture("test", startTime1, endTime1));
+
+            // Act
+            bool result = _validator.IsValidLectureTime(startTime2, endTime2);
+
+            // Assert
+            Assert.IsFalse(result, "Expected false for overlapping lecture times.");
+        }
+
+        [TestMethod]
+        public void IsValidLectureWeekday_InvalidWeekday_ReturnsFalse()
+        {
+            // Arrange
+            string weekDay = "Sunday"; // Invalid day for lectures
+
+            // Act
+            bool result = _validator.IsValidLectureWeekday(weekDay);
+
+            // Assert
+            Assert.IsFalse(result, "Expected false for an invalid weekday.");
+        }
+
+        [TestMethod]
+        public void IsValidLectureWeekday_ValidWeekday_ReturnsTrue()
+        {
+            // Arrange
+            string weekDay = "Monday"; // Valid day for lectures
+
+            // Act
+            bool result = _validator.IsValidLectureWeekday(weekDay);
+
+            // Assert
+            Assert.IsTrue(result, "Expected true for a valid weekday.");
+        }
+
+        [TestMethod]
+        public void IsValidLectureWeekday_NullWeekday_ReturnsTrue()
+        {
+            // Arrange
+            string weekDay = null; // Null should allow all weekdays from Monday to Friday
+
+            // Act
+            bool result = _validator.IsValidLectureWeekday(weekDay);
+
+            // Assert
+            Assert.IsTrue(result, "Expected true for null (lectures occur from Monday to Friday).");
+        }
     }
 
 }
