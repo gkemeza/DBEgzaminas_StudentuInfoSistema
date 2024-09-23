@@ -23,6 +23,7 @@ namespace DBEgzaminas_StudentuInfoSistema
             }
         }
 
+        // Skaito vartotojo pasirinkimą ir kviečia atitinkamą metodą
         private void CallChosenOptionMethod()
         {
             string option = Console.ReadLine();

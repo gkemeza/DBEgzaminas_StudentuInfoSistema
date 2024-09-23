@@ -25,6 +25,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public string CreateDepartment()
         {
+            // kodo validacija
             string code;
             do
             {
@@ -32,6 +33,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidDepartmentCode(code));
 
+            // pavadinimo validacija
             string name;
             do
             {
@@ -45,6 +47,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public int CreateLecture()
         {
+            // pavadinimo validacija
             string name;
             do
             {
@@ -52,6 +55,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidLectureName(name));
 
+            // pradzios ir pabaigos laiko validacija
             TimeOnly startTime;
             TimeOnly endTime;
             do
@@ -95,6 +99,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public int CreateStudent()
         {
+            // numerio validacija
             string studentNumberString;
             do
             {
@@ -103,6 +108,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             while (!_validationService.IsValidStudentNumber(studentNumberString));
             int studentNumber = int.Parse(studentNumberString);
 
+            // vardo validacija
             string firstName;
             do
             {
@@ -110,6 +116,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidStudentName(firstName));
 
+            // pavardes validacija
             string lastName;
             do
             {
@@ -117,6 +124,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidStudentName(lastName));
 
+            //email'o validacija
             string email;
             do
             {
@@ -124,6 +132,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsValidStudentEmail(email));
 
+            // departamento priskyrimo validacija
             _userInterface.PrintDepartments();
             string departmentCode;
             do
@@ -147,6 +156,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             var department = _departmentRepository.GetByCode(departmentCode);
             var lecture = _lectureRepository.GetById(lectureId);
 
+            // Tikrina ar paskaita jau pridėta prie departamento
             if (!department.Lectures.Contains(lecture))
             {
                 department.Lectures.Add(lecture);
@@ -168,6 +178,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             var department = _departmentRepository.GetByCode(departmentCode);
             var student = _studentRepository.GetById(studentNumber);
 
+            // Tikrina ar studentas jau yra departamente
             if (department.Students != null && student != null)
             {
                 if (!department.Students.Contains(student))
@@ -194,28 +205,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             if (!lecture.Students.Contains(student))
             {
                 lecture.Students.Add(student);
-                _departmentRepository.SaveChanges();
-                return true;
-            }
-
-            return false;
-        }
-
-        public bool ChangeStudentDepartment()
-        {
-            _userInterface.PrintStudents();
-            int studentNumber = _userInterface.PromptForStudentNumber();
-
-            _userInterface.PrintDepartments();
-            string departmentCode = _userInterface.PromptForDepartmentCode();
-
-            var student = _studentRepository.GetById(studentNumber);
-            var department = _departmentRepository.GetByCode(departmentCode);
-
-            if (student.DepartmentCode != departmentCode)
-            {
-                student.Department = department;
-                student.Lectures = department.Lectures;
                 _departmentRepository.SaveChanges();
                 return true;
             }
