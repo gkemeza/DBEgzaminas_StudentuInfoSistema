@@ -113,6 +113,11 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return true;
         }
 
+        public bool IsExistingDepartmentCode(string code)
+        {
+            return _departmentRepository.GetAll().Any(d => d.DepartmentCode == code);
+        }
+
         public bool IsValidLectureName(string name)
         {
             if (name.Length < 5)
@@ -130,19 +135,16 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return true;
         }
 
-        public bool IsValidLectureTime(string time)
+        public bool IsValidTime(string input, out TimeOnly time)
         {
-            if (!TimeOnly.TryParseExact(Convert.ToString(time).Substring(0, 5), "HH:mm", out TimeOnly startTime))
-            {
-                return false;
-            }
+            return TimeOnly.TryParseExact(input, "HH:mm", out time);
+        }
 
-            if (!TimeOnly.TryParseExact(Convert.ToString(time).Substring(6, 5), "HH:mm", out TimeOnly endTime))
-            {
-                return false;
-            }
+        //TimeOnly.TryParseExact(Convert.ToString(time).Substring(0, 5), "HH:mm", out TimeOnly startTime)
 
-            if (startTime <= endTime)
+        public bool IsValidLectureTime(TimeOnly startTime, TimeOnly endTime)
+        {
+            if (startTime >= endTime)
             {
                 return false;
             }

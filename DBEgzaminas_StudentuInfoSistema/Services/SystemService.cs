@@ -10,20 +10,33 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
         private readonly ILectureRepository _lectureRepository;
         private readonly IStudentRepository _studentRepository;
         private readonly UserInterface _userInterface;
+        private readonly ValidationService _validationService;
 
         public SystemService(IDepartmentRepository departmentRepository, ILectureRepository lectureRepository,
-            IStudentRepository studentRepository, UserInterface userInterface)
+            IStudentRepository studentRepository, UserInterface userInterface, ValidationService validationService)
         {
             _departmentRepository = departmentRepository;
             _lectureRepository = lectureRepository;
             _studentRepository = studentRepository;
             _userInterface = userInterface;
+            _validationService = validationService;
         }
 
         public string CreateDepartment()
         {
-            string code = _userInterface.PromptForDepartmentCode();
-            string name = _userInterface.PromptForName();
+            string code;
+            do
+            {
+                code = _userInterface.PromptForDepartmentCode();
+            }
+            while (!_validationService.IsValidDepartmentCode(code));
+
+            string name;
+            do
+            {
+                name = _userInterface.PromptForName();
+            }
+            while (!_validationService.IsValidDepartmentName(name));
 
             var department = new Department(code, name);
             return _departmentRepository.Create(department);
@@ -31,9 +44,32 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public int CreateLecture()
         {
-            string name = _userInterface.PromptForName();
-            TimeOnly startTime = _userInterface.PromptForStartTime();
-            TimeOnly endTime = _userInterface.PromptForEndTime();
+            string name;
+            do
+            {
+                name = _userInterface.PromptForName();
+            }
+            while (!_validationService.IsValidLectureName(name));
+
+            TimeOnly startTime;
+            TimeOnly endTime;
+            do
+            {
+                string startString;
+                do
+                {
+                    startString = _userInterface.PromptForStartTime();
+                }
+                while (!_validationService.IsValidTime(startString, out startTime));
+
+                string endString;
+                do
+                {
+                    endString = _userInterface.PromptForEndTime();
+                }
+                while (!_validationService.IsValidTime(endString, out endTime));
+            }
+            while (!_validationService.IsValidLectureTime(startTime, endTime));
 
             var lecture = new Lecture(name, startTime, endTime);
             return _lectureRepository.Create(lecture);
@@ -41,11 +77,34 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public int CreateStudent()
         {
-            string firstName = _userInterface.PromptForFirstName();
-            string lastName = _userInterface.PromptForLastName();
-            string email = _userInterface.PromptForEmail();
+            string firstName;
+            do
+            {
+                firstName = _userInterface.PromptForFirstName();
+            }
+            while (!_validationService.IsValidStudentName(firstName));
+
+            string lastName;
+            do
+            {
+                lastName = _userInterface.PromptForLastName();
+            }
+            while (!_validationService.IsValidStudentName(lastName));
+
+            string email;
+            do
+            {
+                email = _userInterface.PromptForEmail();
+            }
+            while (!_validationService.IsValidStudentEmail(email));
+
             _userInterface.PrintDepartments();
-            string departmentCode = _userInterface.PromptForDepartmentCode();
+            string departmentCode;
+            do
+            {
+                departmentCode = _userInterface.PromptForDepartmentCode();
+            }
+            while (!_validationService.IsExistingDepartmentCode(departmentCode));
 
             var student = new Student(firstName, lastName, email, departmentCode);
             return _studentRepository.Create(student);

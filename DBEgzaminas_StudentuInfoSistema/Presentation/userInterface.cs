@@ -151,16 +151,16 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             return int.Parse(Console.ReadLine());
         }
 
-        public TimeOnly PromptForStartTime()
+        public string PromptForStartTime()
         {
-            Console.WriteLine("Enter start time:");
-            return TimeOnly.Parse(Console.ReadLine());
+            Console.WriteLine("Enter start time (HH:mm):");
+            return Console.ReadLine();
         }
 
-        public TimeOnly PromptForEndTime()
+        public string PromptForEndTime()
         {
-            Console.WriteLine("Enter end time:");
-            return TimeOnly.Parse(Console.ReadLine());
+            Console.WriteLine("Enter end time (HH:mm):");
+            return Console.ReadLine();
         }
 
 

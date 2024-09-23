@@ -15,12 +15,12 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Repositories
             _departments = _context.Set<Department>();
         }
 
-        public Department GetByCode(string code)
+        public Department? GetByCode(string code)
         {
             return _departments
                 .Include(d => d.Students)
                 .Include(d => d.Lectures)
-                .First(d => d.DepartmentCode == code);
+                .FirstOrDefault(d => d.DepartmentCode == code);
         }
 
         public IEnumerable<Department> GetAll()

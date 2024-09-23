@@ -14,10 +14,12 @@ namespace DBEgzaminas_StudentuInfoSistema
             IDepartmentRepository departmentRepository = new DepartmentRepository(context);
             ILectureRepository lectureRepository = new LectureRepository(context);
             IStudentRepository studentRepository = new StudentRepository(context);
+            ValidationService validationService = new ValidationService(
+                departmentRepository, lectureRepository, studentRepository);
             UserInterface userInterface = new UserInterface(
                 departmentRepository, lectureRepository, studentRepository);
             SystemService systemService = new SystemService(
-                departmentRepository, lectureRepository, studentRepository, userInterface);
+                departmentRepository, lectureRepository, studentRepository, userInterface, validationService);
             ApplicationController controller = new ApplicationController(systemService, userInterface);
 
             controller.Run();
