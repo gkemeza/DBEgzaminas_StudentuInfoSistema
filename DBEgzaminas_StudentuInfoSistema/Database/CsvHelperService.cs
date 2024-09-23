@@ -7,7 +7,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
     {
         public static List<Department> GetDepartments()
         {
-            var csv = File.ReadAllLines(@"..\..\..\Database\\InitialData\\departments.csv");
+            var csv = File.ReadAllLines(
+                @"C:\Users\Darbas\.NET_Code\CodeAcademy\DBEgzaminas_StudentuInfoSistema\DBEgzaminas_StudentuInfoSistema\Database\InitialData\departments.csv");
             var departments = new List<Department>();
             foreach (var line in csv.Skip(1))
             {
@@ -25,7 +26,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<Lecture> GetLectures()
         {
-            var csv = File.ReadAllLines(@"..\..\..\Database\\InitialData\\lectures.csv");
+            var csv = File.ReadAllLines(
+                @"C:\Users\Darbas\.NET_Code\CodeAcademy\DBEgzaminas_StudentuInfoSistema\DBEgzaminas_StudentuInfoSistema\Database\InitialData\lectures.csv");
             var lectures = new List<Lecture>();
             foreach (var line in csv.Skip(1))
             {
@@ -45,7 +47,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<Student> GetStudents()
         {
-            var csv = File.ReadAllLines(@"..\..\..\Database\\InitialData\\students.csv");
+            var csv = File.ReadAllLines(
+                @"C:\Users\Darbas\.NET_Code\CodeAcademy\DBEgzaminas_StudentuInfoSistema\DBEgzaminas_StudentuInfoSistema\Database\InitialData\students.csv");
             var students = new List<Student>();
             foreach (var line in csv.Skip(1))
             {
@@ -66,7 +69,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<DepartmentLecture> GetDepartmentsLectures()
         {
-            var csv = File.ReadAllLines(@"..\..\..\Database\\InitialData\\department_lectures.csv");
+            var csv = File.ReadAllLines(
+                @"C:\Users\Darbas\.NET_Code\CodeAcademy\DBEgzaminas_StudentuInfoSistema\DBEgzaminas_StudentuInfoSistema\Database\InitialData\department_lectures.csv");
             var departmentLectures = new List<DepartmentLecture>();
             foreach (var line in csv.Skip(1))
             {
@@ -84,7 +88,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database
 
         public static List<LectureStudent> GetLecturesStudents()
         {
-            var csv = File.ReadAllLines(@"..\..\..\Database\\InitialData\\student_lectures.csv");
+            var csv = File.ReadAllLines(
+                @"C:\Users\Darbas\.NET_Code\CodeAcademy\DBEgzaminas_StudentuInfoSistema\DBEgzaminas_StudentuInfoSistema\Database\InitialData\student_lectures.csv");
             var lectureStudents = new List<LectureStudent>();
             foreach (var line in csv.Skip(1))
             {

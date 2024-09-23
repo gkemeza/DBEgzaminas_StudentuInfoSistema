@@ -15,11 +15,11 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Repositories
             _students = _context.Set<Student>();
         }
 
-        public Student GetById(int id)
+        public Student? GetById(int id)
         {
             return _students
                 .Include(s => s.Lectures)
-                .First(s => s.StudentNumber == id);
+                .FirstOrDefault(s => s.StudentNumber == id);
         }
 
         public IEnumerable<Student> GetAll()

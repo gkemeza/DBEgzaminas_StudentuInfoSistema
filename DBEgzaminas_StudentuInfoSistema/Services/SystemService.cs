@@ -77,6 +77,14 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
 
         public int CreateStudent()
         {
+            string studentNumberString;
+            do
+            {
+                studentNumberString = _userInterface.PromptForStudentNumberString();
+            }
+            while (!_validationService.IsValidStudentNumber(studentNumberString));
+            int studentNumber = int.Parse(studentNumberString);
+
             string firstName;
             do
             {
@@ -106,7 +114,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             }
             while (!_validationService.IsExistingDepartmentCode(departmentCode));
 
-            var student = new Student(firstName, lastName, email, departmentCode);
+            var student = new Student(studentNumber, firstName, lastName, email, departmentCode);
             return _studentRepository.Create(student);
         }
 

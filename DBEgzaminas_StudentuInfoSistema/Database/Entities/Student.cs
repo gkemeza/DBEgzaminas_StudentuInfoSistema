@@ -4,9 +4,10 @@
     {
         public Student() { }
 
-        public Student(string firstName, string lastName,
+        public Student(int studentNumber, string firstName, string lastName,
             string email, string departmentCode)
         {
+            StudentNumber = studentNumber;
             FirstName = firstName;
             LastName = lastName;
             Email = email;

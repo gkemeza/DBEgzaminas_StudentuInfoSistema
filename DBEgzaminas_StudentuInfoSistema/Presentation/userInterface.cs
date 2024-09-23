@@ -121,10 +121,17 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             Console.WriteLine("Enter name:");
             return Console.ReadLine();
         }
+
         public int PromptForStudentNumber()
         {
             Console.WriteLine("Choose student number:");
             return int.Parse(Console.ReadLine());
+        }
+
+        public string PromptForStudentNumberString()
+        {
+            Console.WriteLine("Choose student number:");
+            return Console.ReadLine();
         }
 
         public string PromptForFirstName()
