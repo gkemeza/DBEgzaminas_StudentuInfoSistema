@@ -156,21 +156,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 }
             }
 
-            // Check if the lecture time in the same department is unique
-            //var lectures = _lectureRepository.GetAll();
-            //var departments = _departmentRepository.GetAll();
-            //foreach (var lecture in lectures)
-            //{
-            //    foreach (var department in departments)
-            //    {
-            //        if (lectures.Any(x =>
-            //                x.StartTime > endTime && x.EndTime < startTime))
-            //        {
-            //            return false;
-            //        }
-            //    }
-            //}
-
             return true;
         }
 
