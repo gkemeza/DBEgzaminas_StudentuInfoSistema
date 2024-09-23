@@ -3,10 +3,9 @@ using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
+    // Validaciju metodai
     public class ValidationService
     {
-        // +3 savo validacijos
-
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ILectureRepository _lectureRepository;
         private readonly IStudentRepository _studentRepository;
