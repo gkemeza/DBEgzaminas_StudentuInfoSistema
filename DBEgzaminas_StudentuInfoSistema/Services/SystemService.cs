@@ -1,8 +1,6 @@
 ﻿using DBEgzaminas_StudentuInfoSistema.Database.Entities;
-using DBEgzaminas_StudentuInfoSistema.Database.Enums;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
 using DBEgzaminas_StudentuInfoSistema.Presentation;
-using Microsoft.Identity.Client;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
@@ -140,51 +138,65 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
-        public void PrintDepartmentStudents(string departmentCode)
+        public void PrintDepartmentStudents()
         {
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
             var department = _departmentRepository.GetByCode(departmentCode);
             //gal eager loading reik?
 
             if (department == null)
             {
                 Console.WriteLine($"Department with Code {departmentCode} not found.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
-            if (!department.Lectures.Any())
+            if (!department.Students.Any())
             {
-                Console.WriteLine($"{department.DepartmentName} has no lectures.");
+                Console.WriteLine($"{department.DepartmentName} has no students.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
+            Console.WriteLine();
             foreach (var student in department.Students)
             {
                 Console.WriteLine($"{student.FirstName} {student.LastName} " +
-                    $"({student.Email}) - {student.StudentNumber}");
+                    $"({student.Email})");
             }
+            _userInterface.DisplayMessageAndWait();
         }
 
-        public void PrintDepartmentLectures(string departmentCode)
+        public void PrintDepartmentLectures()
         {
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
             var department = _departmentRepository.GetByCode(departmentCode);
 
             if (department == null)
             {
                 Console.WriteLine($"Department with Code {departmentCode} not found.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
             if (!department.Lectures.Any())
             {
                 Console.WriteLine($"{department.DepartmentName} has no lectures.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
+            Console.WriteLine();
             foreach (var lecture in department.Lectures)
             {
-                Console.WriteLine($"{lecture.LectureName} {lecture.StartTime} " +
-                    $"({lecture.EndTime}) - {lecture.LectureId}");
+                Console.WriteLine($"{lecture.LectureName} ({lecture.StartTime}-" +
+                    $"{lecture.EndTime})");
             }
+            _userInterface.DisplayMessageAndWait();
         }
 
         public void PrintLecturesByStudent(int studentNumber)

@@ -17,7 +17,10 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Repositories
 
         public Department GetByCode(string code)
         {
-            return _departments.Find(code);
+            return _departments
+                .Include(d => d.Students)
+                .Include(d => d.Lectures)
+                .First(d => d.DepartmentCode == code);
         }
 
         public IEnumerable<Department> GetAll()
