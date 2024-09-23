@@ -18,7 +18,7 @@
         public string LastName { get; set; }
         public string Email { get; set; }
 
-        public ICollection<Lecture>? Lectures { get; set; }
+        public ICollection<Lecture>? Lectures { get; set; } = new List<Lecture>();
 
         public string? DepartmentCode { get; set; }
         public Department? Department { get; set; }

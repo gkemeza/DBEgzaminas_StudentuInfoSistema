@@ -144,7 +144,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             string departmentCode = _userInterface.PromptForDepartmentCode();
 
             var department = _departmentRepository.GetByCode(departmentCode);
-            //gal eager loading reik?
 
             if (department == null)
             {
@@ -160,7 +159,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return;
             }
 
-            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine($"{department.DepartmentName} students:");
             foreach (var student in department.Students)
             {
                 Console.WriteLine($"{student.FirstName} {student.LastName} " +
@@ -190,7 +190,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 return;
             }
 
-            Console.WriteLine();
+            Console.Clear();
+            Console.WriteLine($"{department.DepartmentName} lectures:");
             foreach (var lecture in department.Lectures)
             {
                 Console.WriteLine($"{lecture.LectureName} ({lecture.StartTime}-" +
@@ -199,27 +200,35 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             _userInterface.DisplayMessageAndWait();
         }
 
-        public void PrintLecturesByStudent(int studentNumber)
+        public void PrintLecturesByStudent()
         {
+            _userInterface.PrintStudents();
+            int studentNumber = _userInterface.PromptForStudentNumber();
+
             var student = _studentRepository.GetById(studentNumber);
 
             if (student == null)
             {
                 Console.WriteLine($"Student with Number {studentNumber} not found.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
             if (!student.Lectures.Any())
             {
                 Console.WriteLine($"{student.FirstName} {student.LastName} is not enrolled in any lectures.");
+                _userInterface.DisplayMessageAndWait();
                 return;
             }
 
+            Console.Clear();
             Console.WriteLine($"{student.FirstName} {student.LastName} lectures:");
             foreach (var lecture in student.Lectures)
             {
-                Console.WriteLine($"- {lecture}");
+                Console.WriteLine($"{lecture.LectureName} ({lecture.StartTime}-" +
+                    $"{lecture.EndTime})");
             }
+            _userInterface.DisplayMessageAndWait();
         }
     }
 }

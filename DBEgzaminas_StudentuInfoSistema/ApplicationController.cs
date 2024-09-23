@@ -120,6 +120,9 @@ namespace DBEgzaminas_StudentuInfoSistema
                 case "3":
                     _systemService.AddStudentToDepartment();
                     break;
+                case "4":
+                    _systemService.PrintLecturesByStudent();
+                    break;
                 case "q":
                     break;
                 default:

@@ -59,6 +59,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             Console.WriteLine("1. Create student");
             Console.WriteLine("2. Add lecture");
             Console.WriteLine("3. Update department");
+            Console.WriteLine("4. View lectures");
             Console.WriteLine("q. Go back");
         }
 
