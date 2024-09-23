@@ -33,10 +33,10 @@ namespace DBEgzaminas_StudentuInfoSistema
                     HandleDepartmentsMenuInput();
                     break;
                 case "2":
-                    //HandleStudentsMenuInput();
+                    HandleStudentsMenuInput();
                     break;
                 case "3":
-                    //HandleLecturesMenuInput();
+                    HandleLecturesMenuInput();
                     break;
                 case "q":
                     Console.WriteLine("Exiting...");
@@ -62,7 +62,57 @@ namespace DBEgzaminas_StudentuInfoSistema
                     _systemService.AddStudentToDepartment();
                     break;
                 case "3":
-                    //AddLectures();
+                    _systemService.AddLectureToDepartment();
+                    break;
+                case "q":
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+
+        private void HandleLecturesMenuInput()
+        {
+            _userInterface.DisplayLecturesMenu();
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    _systemService.CreateLecture();
+                    break;
+                case "2":
+                    _systemService.AddLectureToDepartment();
+                    break;
+                case "3":
+                    _systemService.AddStudentToLecture();
+                    break;
+                case "q":
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please try again.");
+                    break;
+            }
+        }
+
+        private void HandleStudentsMenuInput()
+        {
+            _userInterface.DisplayStudentsMenu();
+
+            string choice = Console.ReadLine();
+
+            switch (choice)
+            {
+                case "1":
+                    _systemService.CreateStudent();
+                    break;
+                case "2":
+                    _systemService.AddStudentToLecture();
+                    break;
+                case "3":
+                    _systemService.AddStudentToDepartment();
                     break;
                 case "q":
                     break;

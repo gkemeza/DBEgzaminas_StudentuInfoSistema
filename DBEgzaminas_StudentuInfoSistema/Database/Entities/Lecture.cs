@@ -6,10 +6,9 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Entities
     {
         public Lecture() { }
 
-        public Lecture(int lectureId, string lectureName, TimeOnly startTime,
+        public Lecture(string lectureName, TimeOnly startTime,
             TimeOnly endTime, Workday? weekday = null)
         {
-            LectureId = lectureId;
             LectureName = lectureName;
             StartTime = startTime;
             EndTime = endTime;
@@ -22,8 +21,8 @@ namespace DBEgzaminas_StudentuInfoSistema.Database.Entities
         public TimeOnly EndTime { get; set; }
         public Workday? Weekday { get; set; }
 
-        public ICollection<Department>? Departments { get; set; }
-        public ICollection<Student>? Students { get; set; }
+        public ICollection<Department>? Departments { get; set; } = new List<Department>();
+        public ICollection<Student>? Students { get; set; } = new List<Student>();
 
     }
 }

@@ -4,13 +4,13 @@
     {
         public Student() { }
 
-        public Student(int studentNumber, string firstName,
-            string lastName, string email)
+        public Student(string firstName, string lastName,
+            string email, string departmentCode)
         {
-            StudentNumber = studentNumber;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            DepartmentCode = departmentCode;
         }
 
         public int StudentNumber { get; set; }

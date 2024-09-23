@@ -2,6 +2,7 @@
 using DBEgzaminas_StudentuInfoSistema.Database.Enums;
 using DBEgzaminas_StudentuInfoSistema.Database.Repositories.Interfaces;
 using DBEgzaminas_StudentuInfoSistema.Presentation;
+using Microsoft.Identity.Client;
 
 namespace DBEgzaminas_StudentuInfoSistema.Services
 {
@@ -24,28 +25,42 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
         public string CreateDepartment()
         {
             string code = _userInterface.PromptForDepartmentCode();
-            string name = _userInterface.PromptForDepartmentName();
+            string name = _userInterface.PromptForName();
 
             var department = new Department(code, name);
             return _departmentRepository.Create(department);
         }
 
-        public int CreateLecture(int id, string name, TimeOnly startTime,
-                        TimeOnly endTime, Workday? workday = null)
+        public int CreateLecture()
         {
-            var lecture = new Lecture(id, name, startTime, endTime, workday);
+            string name = _userInterface.PromptForName();
+            TimeOnly startTime = _userInterface.PromptForStartTime();
+            TimeOnly endTime = _userInterface.PromptForEndTime();
+
+            var lecture = new Lecture(name, startTime, endTime);
             return _lectureRepository.Create(lecture);
         }
 
-        public int CreateStudent(int studentNumber, string firstName,
-                                string lastName, string email)
+        public int CreateStudent()
         {
-            var student = new Student(studentNumber, firstName, lastName, email);
+            string firstName = _userInterface.PromptForFirstName();
+            string lastName = _userInterface.PromptForLastName();
+            string email = _userInterface.PromptForEmail();
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
+            var student = new Student(firstName, lastName, email, departmentCode);
             return _studentRepository.Create(student);
         }
 
-        public bool AddLectureToDepartment(string departmentCode, int lectureId)
+        public bool AddLectureToDepartment()
         {
+            _userInterface.PrintLectures();
+            int lectureId = _userInterface.PromptForLectureId();
+
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
             var department = _departmentRepository.GetByCode(departmentCode);
             var lecture = _lectureRepository.GetById(lectureId);
 
@@ -59,7 +74,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
-        //??
         public bool AddStudentToDepartment()
         {
             _userInterface.PrintStudents();
@@ -83,8 +97,14 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
-        public bool AddStudentToLecture(int studentNumber, int lectureId)
+        public bool AddStudentToLecture()
         {
+            _userInterface.PrintLectures();
+            int lectureId = _userInterface.PromptForLectureId();
+
+            _userInterface.PrintStudents();
+            int studentNumber = _userInterface.PromptForStudentNumber();
+
             var student = _studentRepository.GetById(studentNumber);
             var lecture = _lectureRepository.GetById(lectureId);
 
@@ -98,8 +118,14 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
             return false;
         }
 
-        public bool ChangeStudentDepartment(int studentNumber, string departmentCode)
+        public bool ChangeStudentDepartment()
         {
+            _userInterface.PrintStudents();
+            int studentNumber = _userInterface.PromptForStudentNumber();
+
+            _userInterface.PrintDepartments();
+            string departmentCode = _userInterface.PromptForDepartmentCode();
+
             var student = _studentRepository.GetById(studentNumber);
             var department = _departmentRepository.GetByCode(departmentCode);
 
@@ -117,7 +143,7 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
         public void PrintDepartmentStudents(string departmentCode)
         {
             var department = _departmentRepository.GetByCode(departmentCode);
-            //gal eager loadig reik?
+            //gal eager loading reik?
 
             if (department == null)
             {
@@ -183,33 +209,5 @@ namespace DBEgzaminas_StudentuInfoSistema.Services
                 Console.WriteLine($"- {lecture}");
             }
         }
-
-        //public void AddStudentsToDepartment(string departmentCode, IEnumerable<Student> students)
-        //{
-        //    var department = _departmentRepository.GetByCode(departmentCode);
-        //    foreach (var student in students)
-        //    {
-        //        if (!department.Students.Contains(student))
-        //        {
-        //            department.Students.Add(student);
-        //        }
-        //    }
-        //    _departmentRepository.SaveChanges();
-        //}
-
-        //public void AddLecturesToDepartment(string departmentCode, IEnumerable<Lecture> lectures)
-        //{
-        //    var department = _departmentRepository.GetByCode(departmentCode);
-        //    foreach (var lecture in lectures)
-        //    {
-        //        if (!department.Lectures.Contains(lecture))
-        //        {
-        //            department.Lectures.Add(lecture);
-        //            _departmentRepository.SaveChanges();
-        //        }
-        //    }
-        //}
-
-
     }
 }

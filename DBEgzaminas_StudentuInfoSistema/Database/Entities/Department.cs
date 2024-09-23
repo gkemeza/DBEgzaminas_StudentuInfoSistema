@@ -13,8 +13,8 @@
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
 
-        public ICollection<Student>? Students { get; set; }
+        public ICollection<Student>? Students { get; set; } = new List<Student>();
 
-        public ICollection<Lecture>? Lectures { get; set; }
+        public ICollection<Lecture>? Lectures { get; set; } = new List<Lecture>();
     }
 }

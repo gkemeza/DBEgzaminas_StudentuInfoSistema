@@ -38,6 +38,28 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             Console.WriteLine("q. Go back");
         }
 
+        public void DisplayLecturesMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("***** Lectures *****\n");
+            Console.WriteLine("Choose a function:");
+            Console.WriteLine("1. Create lecture");
+            Console.WriteLine("2. Add to department");
+            Console.WriteLine("3. Add student");
+            Console.WriteLine("q. Go back");
+        }
+
+        public void DisplayStudentsMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("***** Students *****\n");
+            Console.WriteLine("Choose a function:");
+            Console.WriteLine("1. Create student");
+            Console.WriteLine("2. Add lecture");
+            Console.WriteLine("3. Update department");
+            Console.WriteLine("q. Go back");
+        }
+
         public void DisplayMessageAndWait(string message = "")
         {
             if (message != string.Empty)
@@ -46,18 +68,6 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             }
             Console.WriteLine("\nPress 'Enter' to continue...");
             Console.ReadLine();
-        }
-
-        public string PromptForDepartmentCode()
-        {
-            Console.WriteLine("Enter department code:");
-            return Console.ReadLine();
-        }
-
-        public string PromptForDepartmentName()
-        {
-            Console.WriteLine("Enter department name:");
-            return Console.ReadLine();
         }
 
         public void PrintStudents()
@@ -85,11 +95,72 @@ namespace DBEgzaminas_StudentuInfoSistema.Presentation
             }
         }
 
+        public void PrintLectures()
+        {
+            var lectures = _lectureRepository.GetAll();
+
+            Console.Clear();
+            Console.WriteLine("->Lectures");
+            foreach (var lecture in lectures)
+            {
+                Console.WriteLine($"{lecture.LectureName} - {lecture.LectureId} ");
+            }
+        }
+
+        public string PromptForDepartmentCode()
+        {
+            Console.WriteLine("Enter department code:");
+            return Console.ReadLine();
+        }
+
+        public string PromptForName()
+        {
+            Console.WriteLine("Enter name:");
+            return Console.ReadLine();
+        }
         public int PromptForStudentNumber()
         {
             Console.WriteLine("Choose student number:");
             return int.Parse(Console.ReadLine());
         }
+
+        public string PromptForFirstName()
+        {
+            Console.WriteLine("Enter first name:");
+            return Console.ReadLine();
+        }
+
+        public string PromptForLastName()
+        {
+            Console.WriteLine("Enter last name:");
+            return Console.ReadLine();
+        }
+
+        public string PromptForEmail()
+        {
+            Console.WriteLine("Enter email:");
+            return Console.ReadLine();
+        }
+
+        public int PromptForLectureId()
+        {
+            Console.WriteLine("Choose lecture id:");
+            return int.Parse(Console.ReadLine());
+        }
+
+        public TimeOnly PromptForStartTime()
+        {
+            Console.WriteLine("Enter start time:");
+            return TimeOnly.Parse(Console.ReadLine());
+        }
+
+        public TimeOnly PromptForEndTime()
+        {
+            Console.WriteLine("Enter end time:");
+            return TimeOnly.Parse(Console.ReadLine());
+        }
+
+
 
     }
 }
